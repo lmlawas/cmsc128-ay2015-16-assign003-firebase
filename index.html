@@ -1,0 +1,162 @@
+<!-- 
+    Template taken from
+    http://www.w3schools.com/w3css/w3css_templates.asp 
+-->
+<!DOCTYPE html>
+<html>
+    
+    <!-- HEAD -->
+    <head>
+        <title>Note Pad Alpha</title>
+
+        <!-- Import CSS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+        <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <!-- Import JS -->
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <head>
+
+    <!-- BODY -->
+    <body>
+
+    <!-- Side Navigation -->
+    <nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none">
+          <h1 class="w3-xxxlarge w3-text-teal">Side Navigation</h1>
+          <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-xxxlarge w3-text-theme">Close [x]</a>
+          <a href="javascript:void(0)" onclick="document.getElementById('id01').style.display='block'">New Task</a>
+          <a href="javascript:void(0)">Tasks</a>
+          <a href="javascript:void(0)">Link 3</a>
+          <a href="javascript:void(0)">Link 4</a>
+          <a href="javascript:void(0)">Link 5</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="w3-container w3-theme w3-padding" id="myHeader">
+      <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-opennav"></i> 
+      <div class="w3-center">
+      <h4>Welcome to</h4>
+      <h1 class="w3-xxxlarge w3-animate-bottom">Note Pad Alpha!</h1>
+        <div class="w3-padding-32">
+          <button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">Add task now</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- New Task Modal -->
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content w3-card-8 w3-animate-top">
+
+            <header class="w3-container w3-theme-l1"> 
+                <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn w3-animate-bottom">x</span>
+                <h4>New task</h4>
+            </header>
+
+            <div class="w3-padding">
+                <form class="w3-container">                
+                    <label class="w3-label w3-validate w3-light-grey">Task Name</label>
+                    <input class="w3-input w3-animate-input" type="text" name="task-name" id="task-name">
+                    
+                    <br />
+                    <label class="w3-label w3-validate w3-light-grey">Task Description</label>
+                    <textarea class="w3-input w3-animate-input" name="task-description" id="task-description"></textarea>
+
+                    <br />
+                    <label class="w3-label w3-validate w3-light-grey">Task Status</label>
+                    <br />
+                    <input class="w3-radio" type="radio" name="task-status" id="task-status" value="done">
+                    <label class="w3-label w3-validate">done</label>
+                    <input class="w3-radio" type="radio" name="task-status" id="task-status" value="not done" checked>
+                    <label class="w3-label w3-validate">not done</label>
+
+                    <br /><br />
+                    <button class="w3-btn w3-blue-grey" onclick="document.getElementById('id01').style.display='none'">Save</button>
+                </form>
+            </div>
+            
+            <footer class="w3-container w3-theme-l1">            
+
+            </footer>
+        </div>
+    </div>
+
+    <!-- Script for Sidenav, Tabs, Accordions, Progress bars and slideshows -->
+    <script>
+    // Side navigation
+    function w3_open() {
+        document.getElementsByClassName("w3-sidenav")[0].style.width = "100%";
+        document.getElementsByClassName("w3-sidenav")[0].style.textAlign = "center";
+        document.getElementsByClassName("w3-sidenav")[0].style.fontSize = "50px";
+        document.getElementsByClassName("w3-sidenav")[0].style.paddingTop = "10%";
+        document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+    }
+    function w3_close() {
+        document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+    }
+
+    // Tabs
+    function openCity(evt, cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+      }
+      var activebtn = document.getElementsByClassName("testbtn");
+      for (i = 0; i < x.length; i++) {
+         activebtn[i].classList.remove("w3-dark-grey");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.classList.add("w3-dark-grey");
+    }
+
+    var mybtn = document.getElementsByClassName("testbtn")[0];
+    mybtn.click();
+
+    // Accordions
+    function myAccFunc(id) {
+        document.getElementById(id).classList.toggle("w3-show");
+        document.getElementById(id).previousElementSibling.classList.toggle("w3-dark-grey");
+    }
+
+    // Slideshows
+    var slideIndex = 1;
+
+    function plusDivs(n) {
+    slideIndex = slideIndex + n;
+    showDivs(slideIndex);
+    }
+
+    function showDivs(n) {
+      var x = document.getElementsByClassName("mySlides");
+      if (n > x.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = x.length} ;
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";  
+      }
+      x[slideIndex-1].style.display = "block";  
+    }
+
+    showDivs(1);
+
+    // Progress Bars
+    function move() {
+      var elem = document.getElementById("myBar");   
+      var width = 1;
+      var id = setInterval(frame, 10);
+      function frame() {
+        if (width == 100) {
+          clearInterval(id);
+        } else {
+          width++; 
+          elem.style.width = width + '%'; 
+          document.getElementById("demoprgr").innerHTML = width * 1  + '%';
+        }
+      }
+    }
+    </script>
+
+    </body>
+</html>
