@@ -25,25 +25,25 @@
 
     <!-- Side Navigation -->
     <nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none">
-          <h1 class="w3-xxxlarge w3-text-teal">Side Navigation</h1>
-          <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-xxxlarge w3-text-theme">Close [x]</a>
+          <h6 class="w3-xxlarge w3-text-teal">Side Navigation</h6>
+          <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav">Close [x]</a>
           <a href="javascript:void(0)" onclick="document.getElementById('id01').style.display='block'">New Task</a>
-          <a href="javascript:void(0)">Tasks</a>
-          <a href="javascript:void(0)">Link 3</a>
-          <a href="javascript:void(0)">Link 4</a>
-          <a href="javascript:void(0)">Link 5</a>
+          <a href="javascript:void(0)">All Tasks</a>
+          <a href="javascript:void(0)">Ongoing Tasks</a>
+          <a href="javascript:void(0)">Finished Tasks</a>          
     </nav>
 
     <!-- Header -->
     <header class="w3-container w3-theme w3-padding" id="myHeader">
-      <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-opennav"></i> 
-      <div class="w3-center">
-      <h4>Welcome to</h4>
-      <h1 class="w3-xxxlarge w3-animate-bottom">Note Pad Alpha!</h1>
-        <div class="w3-padding-32">
-          <button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">Add task now</button>
+        <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-opennav"></i> 
+        <div class="w3-center">
+            <h4>Welcome to</h4>            
+            <h1 class="w3-xxxlarge w3-animate-bottom">Note Pad Alpha!</h1>
+
+            <div class="w3-padding-32">
+                <button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">Add task now</button>
+            </div>
         </div>
-      </div>
     </header>
 
     <!-- New Task Modal -->
@@ -51,7 +51,7 @@
         <div class="w3-modal-content w3-card-8 w3-animate-top">
 
             <header class="w3-container w3-theme-l1"> 
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn w3-animate-bottom">x</span>
+                <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn w3-animate-bottom">[x]</span>
                 <h4>New task</h4>
             </header>
 
@@ -67,13 +67,13 @@
                     <br />
                     <label class="w3-label w3-validate w3-light-grey">Task Status</label>
                     <br />
-                    <input class="w3-radio" type="radio" name="task-status" id="task-status" value="done">
+                    <input class="w3-radio" type="radio" name="task-status" id="task-status" value="finished">
                     <label class="w3-label w3-validate">done</label>
-                    <input class="w3-radio" type="radio" name="task-status" id="task-status" value="not done" checked>
+                    <input class="w3-radio" type="radio" name="task-status" id="task-status" value="ongoing">
                     <label class="w3-label w3-validate">not done</label>
 
                     <br /><br />
-                    <button class="w3-btn w3-blue-grey" onclick="document.getElementById('id01').style.display='none'">Save</button>
+                    <button class="w3-btn w3-blue-grey" onclick="document.getElementById('id01').style.display='none'; saveNewTask()">Save Task</button>
                 </form>
             </div>
             
@@ -83,80 +83,42 @@
         </div>
     </div>
 
-    <!-- Script for Sidenav, Tabs, Accordions, Progress bars and slideshows -->
-    <script>
-    // Side navigation
-    function w3_open() {
-        document.getElementsByClassName("w3-sidenav")[0].style.width = "100%";
-        document.getElementsByClassName("w3-sidenav")[0].style.textAlign = "center";
-        document.getElementsByClassName("w3-sidenav")[0].style.fontSize = "50px";
-        document.getElementsByClassName("w3-sidenav")[0].style.paddingTop = "10%";
-        document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
-    }
-    function w3_close() {
-        document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
-    }
+    <!-- Tasks Display -->
+    <hr>
+    <h2 class="w3-center">Tasks Listing</h2>
+    <div class="w3-container">
+        <div class="w3-accordion">
 
-    // Tabs
-    function openCity(evt, cityName) {
-      var i;
-      var x = document.getElementsByClassName("city");
-      for (i = 0; i < x.length; i++) {
-         x[i].style.display = "none";
-      }
-      var activebtn = document.getElementsByClassName("testbtn");
-      for (i = 0; i < x.length; i++) {
-         activebtn[i].classList.remove("w3-dark-grey");
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.classList.add("w3-dark-grey");
-    }
+            <!-- All Tasks -->
+            <button onclick="myAccFunc('AllTasksDiv')" class="w3-padding-16 w3-hover-dark-grey w3-btn-block w3-left-align">All Tasks</button>
+            <div id="AllTasksDiv" class="w3-accordion-content">
+                <div class="w3-container">
+                    <p id="AllTasksP"></p>
+                </div>
+            </div>
 
-    var mybtn = document.getElementsByClassName("testbtn")[0];
-    mybtn.click();
+            <!-- Ongoing Tasks -->
+            <button onclick="myAccFunc('OngoingTasksDiv');" class="w3-padding-16 w3-hover-dark-grey w3-btn-block w3-left-align">Ongoing Tasks</button>
+            <div id="OngoingTasksDiv" class="w3-accordion-content">
+                <div class="w3-container">
+                    <p id="OngoingTasksP"></p>
+                </div>
+            </div>
 
-    // Accordions
-    function myAccFunc(id) {
-        document.getElementById(id).classList.toggle("w3-show");
-        document.getElementById(id).previousElementSibling.classList.toggle("w3-dark-grey");
-    }
+            <!-- Finished Tasks -->        
+            <button onclick="myAccFunc('FinishedTasksDiv')" class="w3-padding-16 w3-hover-dark-grey w3-btn-block w3-left-align">Finished Tasks</button>
+            <div id="FinishedTasksDiv" class="w3-accordion-content">
+                <div class="w3-container">
+                    <p id="FinishedTasksP"></p>
+                </div>
+            </div>
 
-    // Slideshows
-    var slideIndex = 1;
-
-    function plusDivs(n) {
-    slideIndex = slideIndex + n;
-    showDivs(slideIndex);
-    }
-
-    function showDivs(n) {
-      var x = document.getElementsByClassName("mySlides");
-      if (n > x.length) {slideIndex = 1}    
-      if (n < 1) {slideIndex = x.length} ;
-      for (i = 0; i < x.length; i++) {
-         x[i].style.display = "none";  
-      }
-      x[slideIndex-1].style.display = "block";  
-    }
-
-    showDivs(1);
-
-    // Progress Bars
-    function move() {
-      var elem = document.getElementById("myBar");   
-      var width = 1;
-      var id = setInterval(frame, 10);
-      function frame() {
-        if (width == 100) {
-          clearInterval(id);
-        } else {
-          width++; 
-          elem.style.width = width + '%'; 
-          document.getElementById("demoprgr").innerHTML = width * 1  + '%';
-        }
-      }
-    }
-    </script>
+        </div>
+    </div>
+    
+    <!-- Import other JS -->
+    <script src="script/w3-theme-black.js"></script>
+    <script src="script/firebase.js"></script>
 
     </body>
 </html>
