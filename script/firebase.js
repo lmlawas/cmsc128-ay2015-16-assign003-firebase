@@ -2,7 +2,7 @@
     Script for Firebase database insert, update, and view
 */
 
-var myDataRef = new Firebase("https://n13lq7bj4r1.firebaseio-demo.com/"),
+var myDataRef = new Firebase("https://blazing-heat-5676.firebaseio.com/"),
     cnt = 99;
     
 function saveNewTask() {
